@@ -71,9 +71,9 @@ function package() {
     echo "do_package ${do_package}"
     if [[ "${do_package}" = "True" ]];then
         build_jar_deps
-        build_python_deps
-        [[ -d $PROJECT_DIR/dist ]] && rm -r $PROJECT_DIR/dist
-        mv $PYTHON_BASE/dist $PROJECT_DIR
+        # build_python_deps
+        # [[ -d $PROJECT_DIR/dist ]] && rm -r $PROJECT_DIR/dist
+        # mv $PYTHON_BASE/dist $PROJECT_DIR
         echo "Successfully generate ppmml egg package under ${PROJECT_DIR}/dist"
     else
         echo "package option is disabled"

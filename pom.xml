@@ -289,10 +289,6 @@
                     <artifactId>spark-streaming_2.11</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.apache.spark</groupId>
-                    <artifactId>spark-graphx_2.11</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>org.apache.hadoop</groupId>
                     <artifactId>hadoop</artifactId>
                 </exclusion>

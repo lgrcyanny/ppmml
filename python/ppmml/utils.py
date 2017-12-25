@@ -89,13 +89,14 @@ def _get_classpath(excludes=None):
     return classpath
 
 
-def _exec_java(classpath, main_class, args):
+def _exec_java(classpath, main_class, args=None):
     """ a utility function to start a java subprocess
 
     TODO: check java must be 1.8 version
     """
     cmd = ["java", "-cp", classpath, main_class]
-    cmd.extend(args)
+    if (args is not None) and len(args) > 0:
+        cmd.extend(args)
     cmd = ' '.join(cmd)
     try:
         subprocess.check_call(cmd, shell=True)
