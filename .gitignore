@@ -1,0 +1,16 @@
+.DS_Store
+.idea/
+*.log
+*.iml
+target/
+build
+dist
+python/ppmml/resources/*.jar
+test.*
+*.pyc
+*.crc
+python/ppmml.egg-info/*
+spark-warehouse
+src/main/scala/org/ppmml/spark/examples/*
+.ipynb_checkpoints
+
