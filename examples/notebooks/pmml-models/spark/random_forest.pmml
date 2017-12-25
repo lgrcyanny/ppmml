@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_3" version="4.3">
+    <Header>
+        <Application/>
+        <Timestamp>2017-12-17T13:24:53Z</Timestamp>
+    </Header>
+    <DataDictionary>
+        <DataField name="y" optype="categorical" dataType="string">
+            <Value value="Iris-virginica"/>
+            <Value value="Iris-versicolor"/>
+            <Value value="Iris-setosa"/>
+        </DataField>
+        <DataField name="x1" optype="continuous" dataType="double"/>
+        <DataField name="x2" optype="continuous" dataType="double"/>
+        <DataField name="x3" optype="continuous" dataType="double"/>
+        <DataField name="x4" optype="continuous" dataType="double"/>
+    </DataDictionary>
+    <MiningModel functionName="classification">
+        <MiningSchema>
+            <MiningField name="y" usageType="target"/>
+            <MiningField name="x3"/>
+            <MiningField name="x2"/>
+            <MiningField name="x1"/>
+            <MiningField name="x4"/>
+        </MiningSchema>
+        <Output>
+            <OutputField name="pmml(prediction)" optype="categorical" dataType="string" feature="predictedValue"/>
+            <OutputField name="prediction" optype="categorical" dataType="double" feature="transformedValue">
+                <MapValues outputColumn="output">
+                    <FieldColumnPair field="pmml(prediction)" column="input"/>
+                    <InlineTable>
+                        <row>
+                            <input xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">Iris-virginica</input>
+                            <output xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">0</output>
+                        </row>
+                        <row>
+                            <input xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">Iris-versicolor</input>
+                            <output xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">1</output>
+                        </row>
+                        <row>
+                            <input xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">Iris-setosa</input>
+                            <output xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">2</output>
+                        </row>
+                    </InlineTable>
+                </MapValues>
+            </OutputField>
+            <OutputField name="probability(Iris-virginica)" optype="continuous" dataType="double" feature="probability" value="Iris-virginica"/>
+            <OutputField name="probability(Iris-versicolor)" optype="continuous" dataType="double" feature="probability" value="Iris-versicolor"/>
+            <OutputField name="probability(Iris-setosa)" optype="continuous" dataType="double" feature="probability" value="Iris-setosa"/>
+        </Output>
+        <Segmentation multipleModelMethod="average">
+            <Segment id="1">
+                <True/>
+                <TreeModel functionName="classification" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="x2"/>
+                        <MiningField name="x3"/>
+                        <MiningField name="x4"/>
+                    </MiningSchema>
+                    <Node score="Iris-setosa" recordCount="112.0">
+                        <True/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="30.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="35.0"/>
+                        <ScoreDistribution value="Iris-setosa" recordCount="47.0"/>
+                        <Node score="Iris-setosa" recordCount="47.0">
+                            <SimplePredicate field="x4" operator="lessOrEqual" value="0.5"/>
+                            <ScoreDistribution value="Iris-setosa" recordCount="47.0"/>
+                        </Node>
+                        <Node score="Iris-versicolor" recordCount="65.0">
+                            <SimplePredicate field="x4" operator="greaterThan" value="0.5"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="30.0"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="35.0"/>
+                            <Node score="Iris-versicolor" recordCount="33.0">
+<SimplePredicate field="x4" operator="lessOrEqual" value="1.6"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="33.0"/>
+                            </Node>
+                            <Node score="Iris-virginica" recordCount="32.0">
+<SimplePredicate field="x4" operator="greaterThan" value="1.6"/>
+<ScoreDistribution value="Iris-virginica" recordCount="30.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="2.0"/>
+<Node score="Iris-virginica" recordCount="4.0">
+    <SimplePredicate field="x3" operator="lessOrEqual" value="4.8"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="2.0"/>
+    <Node score="Iris-virginica" recordCount="2.0">
+        <SimplePredicate field="x2" operator="lessOrEqual" value="3"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+    </Node>
+    <Node score="Iris-versicolor" recordCount="2.0">
+        <SimplePredicate field="x2" operator="greaterThan" value="3"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="2.0"/>
+    </Node>
+</Node>
+<Node score="Iris-virginica" recordCount="28.0">
+    <SimplePredicate field="x3" operator="greaterThan" value="4.8"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="28.0"/>
+</Node>
+                            </Node>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="2">
+                <True/>
+                <TreeModel functionName="classification" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="x1"/>
+                        <MiningField name="x2"/>
+                        <MiningField name="x3"/>
+                        <MiningField name="x4"/>
+                    </MiningSchema>
+                    <Node score="Iris-virginica" recordCount="133.0">
+                        <True/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="50.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="35.0"/>
+                        <ScoreDistribution value="Iris-setosa" recordCount="48.0"/>
+                        <Node score="Iris-setosa" recordCount="48.0">
+                            <SimplePredicate field="x4" operator="lessOrEqual" value="0.6"/>
+                            <ScoreDistribution value="Iris-setosa" recordCount="48.0"/>
+                        </Node>
+                        <Node score="Iris-virginica" recordCount="85.0">
+                            <SimplePredicate field="x4" operator="greaterThan" value="0.6"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="50.0"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="35.0"/>
+                            <Node score="Iris-versicolor" recordCount="39.0">
+<SimplePredicate field="x4" operator="lessOrEqual" value="1.6"/>
+<ScoreDistribution value="Iris-virginica" recordCount="5.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="34.0"/>
+<Node score="Iris-versicolor" recordCount="19.0">
+    <SimplePredicate field="x1" operator="lessOrEqual" value="5.8"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="19.0"/>
+</Node>
+<Node score="Iris-versicolor" recordCount="20.0">
+    <SimplePredicate field="x1" operator="greaterThan" value="5.8"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="5.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="15.0"/>
+    <Node score="Iris-versicolor" recordCount="9.0">
+        <SimplePredicate field="x2" operator="lessOrEqual" value="2.6"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="4.0"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="5.0"/>
+        <Node score="Iris-versicolor" recordCount="5.0">
+            <SimplePredicate field="x3" operator="lessOrEqual" value="4.9"/>
+            <ScoreDistribution value="Iris-versicolor" recordCount="5.0"/>
+        </Node>
+        <Node score="Iris-virginica" recordCount="4.0">
+            <SimplePredicate field="x3" operator="greaterThan" value="4.9"/>
+            <ScoreDistribution value="Iris-virginica" recordCount="4.0"/>
+        </Node>
+    </Node>
+    <Node score="Iris-versicolor" recordCount="11.0">
+        <SimplePredicate field="x2" operator="greaterThan" value="2.6"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="1.0"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="10.0"/>
+        <Node score="Iris-versicolor" recordCount="10.0">
+            <SimplePredicate field="x1" operator="lessOrEqual" value="7"/>
+            <ScoreDistribution value="Iris-versicolor" recordCount="10.0"/>
+        </Node>
+        <Node score="Iris-virginica" recordCount="1.0">
+            <SimplePredicate field="x1" operator="greaterThan" value="7"/>
+            <ScoreDistribution value="Iris-virginica" recordCount="1.0"/>
+        </Node>
+    </Node>
+</Node>
+                            </Node>
+                            <Node score="Iris-virginica" recordCount="46.0">
+<SimplePredicate field="x4" operator="greaterThan" value="1.6"/>
+<ScoreDistribution value="Iris-virginica" recordCount="45.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+<Node score="Iris-virginica" recordCount="4.0">
+    <SimplePredicate field="x1" operator="lessOrEqual" value="5.9"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="3.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+    <Node score="Iris-versicolor" recordCount="1.0">
+        <SimplePredicate field="x3" operator="lessOrEqual" value="4.8"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+    </Node>
+    <Node score="Iris-virginica" recordCount="3.0">
+        <SimplePredicate field="x3" operator="greaterThan" value="4.8"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="3.0"/>
+    </Node>
+</Node>
+<Node score="Iris-virginica" recordCount="42.0">
+    <SimplePredicate field="x1" operator="greaterThan" value="5.9"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="42.0"/>
+</Node>
+                            </Node>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="3">
+                <True/>
+                <TreeModel functionName="classification" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="x2"/>
+                        <MiningField name="x3"/>
+                        <MiningField name="x4"/>
+                    </MiningSchema>
+                    <Node score="Iris-virginica" recordCount="119.0">
+                        <True/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="46.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="39.0"/>
+                        <ScoreDistribution value="Iris-setosa" recordCount="34.0"/>
+                        <Node score="Iris-setosa" recordCount="34.0">
+                            <SimplePredicate field="x4" operator="lessOrEqual" value="0.6"/>
+                            <ScoreDistribution value="Iris-setosa" recordCount="34.0"/>
+                        </Node>
+                        <Node score="Iris-virginica" recordCount="85.0">
+                            <SimplePredicate field="x4" operator="greaterThan" value="0.6"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="46.0"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="39.0"/>
+                            <Node score="Iris-versicolor" recordCount="40.0">
+<SimplePredicate field="x4" operator="lessOrEqual" value="1.5"/>
+<ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="38.0"/>
+<Node score="Iris-versicolor" recordCount="38.0">
+    <SimplePredicate field="x3" operator="lessOrEqual" value="4.9"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="38.0"/>
+</Node>
+<Node score="Iris-virginica" recordCount="2.0">
+    <SimplePredicate field="x3" operator="greaterThan" value="4.9"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+</Node>
+                            </Node>
+                            <Node score="Iris-virginica" recordCount="45.0">
+<SimplePredicate field="x4" operator="greaterThan" value="1.5"/>
+<ScoreDistribution value="Iris-virginica" recordCount="44.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+<Node score="Iris-virginica" recordCount="3.0">
+    <SimplePredicate field="x4" operator="lessOrEqual" value="1.6"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+    <Node score="Iris-virginica" recordCount="2.0">
+        <SimplePredicate field="x2" operator="lessOrEqual" value="3"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+    </Node>
+    <Node score="Iris-versicolor" recordCount="1.0">
+        <SimplePredicate field="x2" operator="greaterThan" value="3"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+    </Node>
+</Node>
+<Node score="Iris-virginica" recordCount="42.0">
+    <SimplePredicate field="x4" operator="greaterThan" value="1.6"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="42.0"/>
+</Node>
+                            </Node>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="4">
+                <True/>
+                <TreeModel functionName="classification" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="x1"/>
+                        <MiningField name="x2"/>
+                        <MiningField name="x4"/>
+                    </MiningSchema>
+                    <Node score="Iris-virginica" recordCount="110.0">
+                        <True/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="47.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="32.0"/>
+                        <ScoreDistribution value="Iris-setosa" recordCount="31.0"/>
+                        <Node score="Iris-setosa" recordCount="31.0">
+                            <SimplePredicate field="x4" operator="lessOrEqual" value="0.4"/>
+                            <ScoreDistribution value="Iris-setosa" recordCount="31.0"/>
+                        </Node>
+                        <Node score="Iris-virginica" recordCount="79.0">
+                            <SimplePredicate field="x4" operator="greaterThan" value="0.4"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="47.0"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="32.0"/>
+                            <Node score="Iris-versicolor" recordCount="35.0">
+<SimplePredicate field="x4" operator="lessOrEqual" value="1.6"/>
+<ScoreDistribution value="Iris-virginica" recordCount="3.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="32.0"/>
+<Node score="Iris-versicolor" recordCount="17.0">
+    <SimplePredicate field="x4" operator="lessOrEqual" value="1.3"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="17.0"/>
+</Node>
+<Node score="Iris-versicolor" recordCount="18.0">
+    <SimplePredicate field="x4" operator="greaterThan" value="1.3"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="3.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="15.0"/>
+    <Node score="Iris-versicolor" recordCount="17.0">
+        <SimplePredicate field="x1" operator="lessOrEqual" value="6.9"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="15.0"/>
+        <Node score="Iris-versicolor" recordCount="6.0">
+            <SimplePredicate field="x2" operator="lessOrEqual" value="2.6"/>
+            <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+            <ScoreDistribution value="Iris-versicolor" recordCount="4.0"/>
+            <Node score="Iris-virginica" recordCount="2.0">
+                <SimplePredicate field="x1" operator="lessOrEqual" value="6.1"/>
+                <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+            </Node>
+            <Node score="Iris-versicolor" recordCount="4.0">
+                <SimplePredicate field="x1" operator="greaterThan" value="6.1"/>
+                <ScoreDistribution value="Iris-versicolor" recordCount="4.0"/>
+            </Node>
+        </Node>
+        <Node score="Iris-versicolor" recordCount="11.0">
+            <SimplePredicate field="x2" operator="greaterThan" value="2.6"/>
+            <ScoreDistribution value="Iris-versicolor" recordCount="11.0"/>
+        </Node>
+    </Node>
+    <Node score="Iris-virginica" recordCount="1.0">
+        <SimplePredicate field="x1" operator="greaterThan" value="6.9"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="1.0"/>
+    </Node>
+</Node>
+                            </Node>
+                            <Node score="Iris-virginica" recordCount="44.0">
+<SimplePredicate field="x4" operator="greaterThan" value="1.6"/>
+<ScoreDistribution value="Iris-virginica" recordCount="44.0"/>
+                            </Node>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="5">
+                <True/>
+                <TreeModel functionName="classification" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="x1"/>
+                        <MiningField name="x2"/>
+                        <MiningField name="x3"/>
+                        <MiningField name="x4"/>
+                    </MiningSchema>
+                    <Node score="Iris-versicolor" recordCount="124.0">
+                        <True/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="43.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="44.0"/>
+                        <ScoreDistribution value="Iris-setosa" recordCount="37.0"/>
+                        <Node score="Iris-setosa" recordCount="37.0">
+                            <SimplePredicate field="x3" operator="lessOrEqual" value="1.9"/>
+                            <ScoreDistribution value="Iris-setosa" recordCount="37.0"/>
+                        </Node>
+                        <Node score="Iris-versicolor" recordCount="87.0">
+                            <SimplePredicate field="x3" operator="greaterThan" value="1.9"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="43.0"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="44.0"/>
+                            <Node score="Iris-versicolor" recordCount="39.0">
+<SimplePredicate field="x3" operator="lessOrEqual" value="4.7"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="39.0"/>
+                            </Node>
+                            <Node score="Iris-virginica" recordCount="48.0">
+<SimplePredicate field="x3" operator="greaterThan" value="4.7"/>
+<ScoreDistribution value="Iris-virginica" recordCount="43.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="5.0"/>
+<Node score="Iris-virginica" recordCount="11.0">
+    <SimplePredicate field="x3" operator="lessOrEqual" value="4.9"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="6.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="5.0"/>
+    <Node score="Iris-virginica" recordCount="8.0">
+        <SimplePredicate field="x2" operator="lessOrEqual" value="3"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="6.0"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="2.0"/>
+        <Node score="Iris-virginica" recordCount="4.0">
+            <SimplePredicate field="x1" operator="lessOrEqual" value="6.2"/>
+            <ScoreDistribution value="Iris-virginica" recordCount="4.0"/>
+        </Node>
+        <Node score="Iris-virginica" recordCount="4.0">
+            <SimplePredicate field="x1" operator="greaterThan" value="6.2"/>
+            <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+            <ScoreDistribution value="Iris-versicolor" recordCount="2.0"/>
+            <Node score="Iris-versicolor" recordCount="2.0">
+                <SimplePredicate field="x4" operator="lessOrEqual" value="1.5"/>
+                <ScoreDistribution value="Iris-versicolor" recordCount="2.0"/>
+            </Node>
+            <Node score="Iris-virginica" recordCount="2.0">
+                <SimplePredicate field="x4" operator="greaterThan" value="1.5"/>
+                <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+            </Node>
+        </Node>
+    </Node>
+    <Node score="Iris-versicolor" recordCount="3.0">
+        <SimplePredicate field="x2" operator="greaterThan" value="3"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="3.0"/>
+    </Node>
+</Node>
+<Node score="Iris-virginica" recordCount="37.0">
+    <SimplePredicate field="x3" operator="greaterThan" value="4.9"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="37.0"/>
+</Node>
+                            </Node>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="6">
+                <True/>
+                <TreeModel functionName="classification" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="x2"/>
+                        <MiningField name="x3"/>
+                        <MiningField name="x4"/>
+                    </MiningSchema>
+                    <Node score="Iris-virginica" recordCount="116.0">
+                        <True/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="44.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="32.0"/>
+                        <ScoreDistribution value="Iris-setosa" recordCount="40.0"/>
+                        <Node score="Iris-setosa" recordCount="40.0">
+                            <SimplePredicate field="x3" operator="lessOrEqual" value="1.9"/>
+                            <ScoreDistribution value="Iris-setosa" recordCount="40.0"/>
+                        </Node>
+                        <Node score="Iris-virginica" recordCount="76.0">
+                            <SimplePredicate field="x3" operator="greaterThan" value="1.9"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="44.0"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="32.0"/>
+                            <Node score="Iris-versicolor" recordCount="36.0">
+<SimplePredicate field="x3" operator="lessOrEqual" value="4.9"/>
+<ScoreDistribution value="Iris-virginica" recordCount="4.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="32.0"/>
+<Node score="Iris-versicolor" recordCount="31.0">
+    <SimplePredicate field="x4" operator="lessOrEqual" value="1.6"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="31.0"/>
+</Node>
+<Node score="Iris-virginica" recordCount="5.0">
+    <SimplePredicate field="x4" operator="greaterThan" value="1.6"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="4.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+    <Node score="Iris-virginica" recordCount="4.0">
+        <SimplePredicate field="x2" operator="lessOrEqual" value="2.8"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="4.0"/>
+    </Node>
+    <Node score="Iris-versicolor" recordCount="1.0">
+        <SimplePredicate field="x2" operator="greaterThan" value="2.8"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+    </Node>
+</Node>
+                            </Node>
+                            <Node score="Iris-virginica" recordCount="40.0">
+<SimplePredicate field="x3" operator="greaterThan" value="4.9"/>
+<ScoreDistribution value="Iris-virginica" recordCount="40.0"/>
+                            </Node>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="7">
+                <True/>
+                <TreeModel functionName="classification" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="x1"/>
+                        <MiningField name="x3"/>
+                        <MiningField name="x4"/>
+                    </MiningSchema>
+                    <Node score="Iris-versicolor" recordCount="124.0">
+                        <True/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="45.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="49.0"/>
+                        <ScoreDistribution value="Iris-setosa" recordCount="30.0"/>
+                        <Node score="Iris-setosa" recordCount="30.0">
+                            <SimplePredicate field="x4" operator="lessOrEqual" value="0.5"/>
+                            <ScoreDistribution value="Iris-setosa" recordCount="30.0"/>
+                        </Node>
+                        <Node score="Iris-versicolor" recordCount="94.0">
+                            <SimplePredicate field="x4" operator="greaterThan" value="0.5"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="45.0"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="49.0"/>
+                            <Node score="Iris-versicolor" recordCount="53.0">
+<SimplePredicate field="x4" operator="lessOrEqual" value="1.6"/>
+<ScoreDistribution value="Iris-virginica" recordCount="4.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="49.0"/>
+<Node score="Iris-versicolor" recordCount="48.0">
+    <SimplePredicate field="x3" operator="lessOrEqual" value="4.9"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="48.0"/>
+</Node>
+<Node score="Iris-virginica" recordCount="5.0">
+    <SimplePredicate field="x3" operator="greaterThan" value="4.9"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="4.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+    <Node score="Iris-virginica" recordCount="2.0">
+        <SimplePredicate field="x1" operator="lessOrEqual" value="6"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="1.0"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+        <Node score="Iris-virginica" recordCount="1.0">
+            <SimplePredicate field="x4" operator="lessOrEqual" value="1.5"/>
+            <ScoreDistribution value="Iris-virginica" recordCount="1.0"/>
+        </Node>
+        <Node score="Iris-versicolor" recordCount="1.0">
+            <SimplePredicate field="x4" operator="greaterThan" value="1.5"/>
+            <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+        </Node>
+    </Node>
+    <Node score="Iris-virginica" recordCount="3.0">
+        <SimplePredicate field="x1" operator="greaterThan" value="6"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="3.0"/>
+    </Node>
+</Node>
+                            </Node>
+                            <Node score="Iris-virginica" recordCount="41.0">
+<SimplePredicate field="x4" operator="greaterThan" value="1.6"/>
+<ScoreDistribution value="Iris-virginica" recordCount="41.0"/>
+                            </Node>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="8">
+                <True/>
+                <TreeModel functionName="classification" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="x1"/>
+                        <MiningField name="x2"/>
+                        <MiningField name="x3"/>
+                        <MiningField name="x4"/>
+                    </MiningSchema>
+                    <Node score="Iris-versicolor" recordCount="123.0">
+                        <True/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="40.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="45.0"/>
+                        <ScoreDistribution value="Iris-setosa" recordCount="38.0"/>
+                        <Node score="Iris-setosa" recordCount="44.0">
+                            <SimplePredicate field="x1" operator="lessOrEqual" value="5.4"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="5.0"/>
+                            <ScoreDistribution value="Iris-setosa" recordCount="37.0"/>
+                            <Node score="Iris-setosa" recordCount="37.0">
+<SimplePredicate field="x3" operator="lessOrEqual" value="1.7"/>
+<ScoreDistribution value="Iris-setosa" recordCount="37.0"/>
+                            </Node>
+                            <Node score="Iris-versicolor" recordCount="7.0">
+<SimplePredicate field="x3" operator="greaterThan" value="1.7"/>
+<ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="5.0"/>
+<Node score="Iris-versicolor" recordCount="5.0">
+    <SimplePredicate field="x4" operator="lessOrEqual" value="1.5"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="5.0"/>
+</Node>
+<Node score="Iris-virginica" recordCount="2.0">
+    <SimplePredicate field="x4" operator="greaterThan" value="1.5"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+</Node>
+                            </Node>
+                        </Node>
+                        <Node score="Iris-versicolor" recordCount="79.0">
+                            <SimplePredicate field="x1" operator="greaterThan" value="5.4"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="38.0"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="40.0"/>
+                            <ScoreDistribution value="Iris-setosa" recordCount="1.0"/>
+                            <Node score="Iris-versicolor" recordCount="38.0">
+<SimplePredicate field="x3" operator="lessOrEqual" value="4.8"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="37.0"/>
+<ScoreDistribution value="Iris-setosa" recordCount="1.0"/>
+<Node score="Iris-setosa" recordCount="1.0">
+    <SimplePredicate field="x4" operator="lessOrEqual" value="0.2"/>
+    <ScoreDistribution value="Iris-setosa" recordCount="1.0"/>
+</Node>
+<Node score="Iris-versicolor" recordCount="37.0">
+    <SimplePredicate field="x4" operator="greaterThan" value="0.2"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="37.0"/>
+</Node>
+                            </Node>
+                            <Node score="Iris-virginica" recordCount="41.0">
+<SimplePredicate field="x3" operator="greaterThan" value="4.8"/>
+<ScoreDistribution value="Iris-virginica" recordCount="38.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="3.0"/>
+<Node score="Iris-virginica" recordCount="11.0">
+    <SimplePredicate field="x2" operator="lessOrEqual" value="2.7"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="8.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="3.0"/>
+    <Node score="Iris-versicolor" recordCount="5.0">
+        <SimplePredicate field="x4" operator="lessOrEqual" value="1.6"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="3.0"/>
+        <Node score="Iris-versicolor" recordCount="3.0">
+            <SimplePredicate field="x3" operator="lessOrEqual" value="5.1"/>
+            <ScoreDistribution value="Iris-versicolor" recordCount="3.0"/>
+        </Node>
+        <Node score="Iris-virginica" recordCount="2.0">
+            <SimplePredicate field="x3" operator="greaterThan" value="5.1"/>
+            <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+        </Node>
+    </Node>
+    <Node score="Iris-virginica" recordCount="6.0">
+        <SimplePredicate field="x4" operator="greaterThan" value="1.6"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="6.0"/>
+    </Node>
+</Node>
+<Node score="Iris-virginica" recordCount="30.0">
+    <SimplePredicate field="x2" operator="greaterThan" value="2.7"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="30.0"/>
+</Node>
+                            </Node>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="9">
+                <True/>
+                <TreeModel functionName="classification" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="x2"/>
+                        <MiningField name="x3"/>
+                        <MiningField name="x4"/>
+                    </MiningSchema>
+                    <Node score="Iris-setosa" recordCount="121.0">
+                        <True/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="42.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="36.0"/>
+                        <ScoreDistribution value="Iris-setosa" recordCount="43.0"/>
+                        <Node score="Iris-setosa" recordCount="43.0">
+                            <SimplePredicate field="x4" operator="lessOrEqual" value="0.6"/>
+                            <ScoreDistribution value="Iris-setosa" recordCount="43.0"/>
+                        </Node>
+                        <Node score="Iris-virginica" recordCount="78.0">
+                            <SimplePredicate field="x4" operator="greaterThan" value="0.6"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="42.0"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="36.0"/>
+                            <Node score="Iris-versicolor" recordCount="35.0">
+<SimplePredicate field="x4" operator="lessOrEqual" value="1.5"/>
+<ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="33.0"/>
+<Node score="Iris-versicolor" recordCount="33.0">
+    <SimplePredicate field="x3" operator="lessOrEqual" value="4.9"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="33.0"/>
+</Node>
+<Node score="Iris-virginica" recordCount="2.0">
+    <SimplePredicate field="x3" operator="greaterThan" value="4.9"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+</Node>
+                            </Node>
+                            <Node score="Iris-virginica" recordCount="43.0">
+<SimplePredicate field="x4" operator="greaterThan" value="1.5"/>
+<ScoreDistribution value="Iris-virginica" recordCount="40.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="3.0"/>
+<Node score="Iris-versicolor" recordCount="5.0">
+    <SimplePredicate field="x3" operator="lessOrEqual" value="4.8"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="3.0"/>
+    <Node score="Iris-virginica" recordCount="2.0">
+        <SimplePredicate field="x2" operator="lessOrEqual" value="3"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+    </Node>
+    <Node score="Iris-versicolor" recordCount="3.0">
+        <SimplePredicate field="x2" operator="greaterThan" value="3"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="3.0"/>
+    </Node>
+</Node>
+<Node score="Iris-virginica" recordCount="38.0">
+    <SimplePredicate field="x3" operator="greaterThan" value="4.8"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="38.0"/>
+</Node>
+                            </Node>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="10">
+                <True/>
+                <TreeModel functionName="classification" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="x1"/>
+                        <MiningField name="x2"/>
+                        <MiningField name="x3"/>
+                        <MiningField name="x4"/>
+                    </MiningSchema>
+                    <Node score="Iris-setosa" recordCount="133.0">
+                        <True/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="42.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="42.0"/>
+                        <ScoreDistribution value="Iris-setosa" recordCount="49.0"/>
+                        <Node score="Iris-setosa" recordCount="49.0">
+                            <SimplePredicate field="x3" operator="lessOrEqual" value="1.9"/>
+                            <ScoreDistribution value="Iris-setosa" recordCount="49.0"/>
+                        </Node>
+                        <Node score="Iris-virginica" recordCount="84.0">
+                            <SimplePredicate field="x3" operator="greaterThan" value="1.9"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="42.0"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="42.0"/>
+                            <Node score="Iris-versicolor" recordCount="55.0">
+<SimplePredicate field="x1" operator="lessOrEqual" value="6.3"/>
+<ScoreDistribution value="Iris-virginica" recordCount="19.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="36.0"/>
+<Node score="Iris-versicolor" recordCount="36.0">
+    <SimplePredicate field="x4" operator="lessOrEqual" value="1.6"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="34.0"/>
+    <Node score="Iris-versicolor" recordCount="32.0">
+        <SimplePredicate field="x3" operator="lessOrEqual" value="4.9"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="32.0"/>
+    </Node>
+    <Node score="Iris-virginica" recordCount="4.0">
+        <SimplePredicate field="x3" operator="greaterThan" value="4.9"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="2.0"/>
+        <Node score="Iris-virginica" recordCount="2.0">
+            <SimplePredicate field="x2" operator="lessOrEqual" value="2.6"/>
+            <ScoreDistribution value="Iris-virginica" recordCount="2.0"/>
+        </Node>
+        <Node score="Iris-versicolor" recordCount="2.0">
+            <SimplePredicate field="x2" operator="greaterThan" value="2.6"/>
+            <ScoreDistribution value="Iris-versicolor" recordCount="2.0"/>
+        </Node>
+    </Node>
+</Node>
+<Node score="Iris-virginica" recordCount="19.0">
+    <SimplePredicate field="x4" operator="greaterThan" value="1.6"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="17.0"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="2.0"/>
+    <Node score="Iris-versicolor" recordCount="3.0">
+        <SimplePredicate field="x3" operator="lessOrEqual" value="4.8"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="1.0"/>
+        <ScoreDistribution value="Iris-versicolor" recordCount="2.0"/>
+        <Node score="Iris-virginica" recordCount="1.0">
+            <SimplePredicate field="x1" operator="lessOrEqual" value="4.9"/>
+            <ScoreDistribution value="Iris-virginica" recordCount="1.0"/>
+        </Node>
+        <Node score="Iris-versicolor" recordCount="2.0">
+            <SimplePredicate field="x1" operator="greaterThan" value="4.9"/>
+            <ScoreDistribution value="Iris-versicolor" recordCount="2.0"/>
+        </Node>
+    </Node>
+    <Node score="Iris-virginica" recordCount="16.0">
+        <SimplePredicate field="x3" operator="greaterThan" value="4.8"/>
+        <ScoreDistribution value="Iris-virginica" recordCount="16.0"/>
+    </Node>
+</Node>
+                            </Node>
+                            <Node score="Iris-virginica" recordCount="29.0">
+<SimplePredicate field="x1" operator="greaterThan" value="6.3"/>
+<ScoreDistribution value="Iris-virginica" recordCount="23.0"/>
+<ScoreDistribution value="Iris-versicolor" recordCount="6.0"/>
+<Node score="Iris-versicolor" recordCount="6.0">
+    <SimplePredicate field="x4" operator="lessOrEqual" value="1.5"/>
+    <ScoreDistribution value="Iris-versicolor" recordCount="6.0"/>
+</Node>
+<Node score="Iris-virginica" recordCount="23.0">
+    <SimplePredicate field="x4" operator="greaterThan" value="1.5"/>
+    <ScoreDistribution value="Iris-virginica" recordCount="23.0"/>
+</Node>
+                            </Node>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+        </Segmentation>
+    </MiningModel>
+</PMML>

@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.VectorAssembler","timestamp":1513953362508,"sparkVersion":"2.2.1.0-pingo-SNAPSHOT","uid":"vecAssembler_5f31ba8c966d","paramMap":{"inputCols":["x1","x2","x3","x4"],"outputCol":"features"}}

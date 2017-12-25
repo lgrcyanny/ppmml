@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_3" version="4.3">
+	<Header>
+		<Application name="JPMML-TensorFlow" version="1.0-SNAPSHOT"/>
+		<Timestamp>2017-12-19T06:14:14Z</Timestamp>
+	</Header>
+	<DataDictionary>
+		<DataField name="_target" optype="categorical" dataType="integer">
+			<Value value="0"/>
+			<Value value="1"/>
+			<Value value="2"/>
+		</DataField>
+		<DataField name="petal_length" optype="continuous" dataType="double"/>
+		<DataField name="petal_width" optype="continuous" dataType="double"/>
+		<DataField name="sepal_length" optype="continuous" dataType="double"/>
+		<DataField name="sepal_width" optype="continuous" dataType="double"/>
+	</DataDictionary>
+	<TransformationDictionary>
+		<DerivedField name="float(petal_length)" optype="continuous" dataType="float">
+			<FieldRef field="petal_length"/>
+		</DerivedField>
+		<DerivedField name="float(petal_width)" optype="continuous" dataType="float">
+			<FieldRef field="petal_width"/>
+		</DerivedField>
+		<DerivedField name="float(sepal_length)" optype="continuous" dataType="float">
+			<FieldRef field="sepal_length"/>
+		</DerivedField>
+		<DerivedField name="float(sepal_width)" optype="continuous" dataType="float">
+			<FieldRef field="sepal_width"/>
+		</DerivedField>
+	</TransformationDictionary>
+	<RegressionModel functionName="classification" normalizationMethod="softmax" x-mathContext="float">
+		<MiningSchema>
+			<MiningField name="_target" usageType="target"/>
+			<MiningField name="petal_length"/>
+			<MiningField name="petal_width"/>
+			<MiningField name="sepal_length"/>
+			<MiningField name="sepal_width"/>
+		</MiningSchema>
+		<Output>
+			<OutputField name="probability(0)" optype="continuous" dataType="float" feature="probability" value="0"/>
+			<OutputField name="probability(1)" optype="continuous" dataType="float" feature="probability" value="1"/>
+			<OutputField name="probability(2)" optype="continuous" dataType="float" feature="probability" value="2"/>
+		</Output>
+		<RegressionTable intercept="2.3418906" targetCategory="0">
+			<NumericPredictor name="float(petal_length)" coefficient="-2.2008595"/>
+			<NumericPredictor name="float(petal_width)" coefficient="-2.2278187"/>
+			<NumericPredictor name="float(sepal_length)" coefficient="0.4375547"/>
+			<NumericPredictor name="float(sepal_width)" coefficient="2.124173"/>
+		</RegressionTable>
+		<RegressionTable intercept="4.0592265" targetCategory="1">
+			<NumericPredictor name="float(petal_length)" coefficient="0.14920352"/>
+			<NumericPredictor name="float(petal_width)" coefficient="-2.6342685"/>
+			<NumericPredictor name="float(sepal_length)" coefficient="0.85015297"/>
+			<NumericPredictor name="float(sepal_width)" coefficient="-1.2301236"/>
+		</RegressionTable>
+		<RegressionTable intercept="-2.993214" targetCategory="2">
+			<NumericPredictor name="float(petal_length)" coefficient="2.4585257"/>
+			<NumericPredictor name="float(petal_width)" coefficient="2.4424736"/>
+			<NumericPredictor name="float(sepal_length)" coefficient="-0.5353176"/>
+			<NumericPredictor name="float(sepal_width)" coefficient="-2.626989"/>
+		</RegressionTable>
+	</RegressionModel>
+</PMML>

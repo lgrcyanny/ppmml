@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_3" version="4.3">
+    <Header>
+        <Application/>
+        <Timestamp>2017-12-18T14:30:31Z</Timestamp>
+    </Header>
+    <DataDictionary>
+        <DataField name="y" optype="categorical" dataType="string">
+            <Value value="Iris-setosa"/>
+            <Value value="Iris-virginica"/>
+            <Value value="Iris-versicolor"/>
+        </DataField>
+        <DataField name="x1" optype="continuous" dataType="double"/>
+        <DataField name="x2" optype="continuous" dataType="double"/>
+        <DataField name="x3" optype="continuous" dataType="double"/>
+        <DataField name="x4" optype="continuous" dataType="double"/>
+    </DataDictionary>
+    <TreeModel functionName="classification" splitCharacteristic="binarySplit">
+        <MiningSchema>
+            <MiningField name="y" usageType="target"/>
+            <MiningField name="x1"/>
+            <MiningField name="x2"/>
+            <MiningField name="x3"/>
+            <MiningField name="x4"/>
+        </MiningSchema>
+        <Output>
+            <OutputField name="pmml(prediction)" optype="categorical" dataType="string" feature="predictedValue"/>
+            <OutputField name="prediction" optype="categorical" dataType="double" feature="transformedValue">
+                <MapValues outputColumn="output">
+                    <FieldColumnPair field="pmml(prediction)" column="input"/>
+                    <InlineTable>
+                        <row>
+                            <input xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">Iris-setosa</input>
+                            <output xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">0</output>
+                        </row>
+                        <row>
+                            <input xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">Iris-virginica</input>
+                            <output xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">1</output>
+                        </row>
+                        <row>
+                            <input xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">Iris-versicolor</input>
+                            <output xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">2</output>
+                        </row>
+                    </InlineTable>
+                </MapValues>
+            </OutputField>
+            <OutputField name="probability(Iris-setosa)" optype="continuous" dataType="double" feature="probability" value="Iris-setosa"/>
+            <OutputField name="probability(Iris-virginica)" optype="continuous" dataType="double" feature="probability" value="Iris-virginica"/>
+            <OutputField name="probability(Iris-versicolor)" optype="continuous" dataType="double" feature="probability" value="Iris-versicolor"/>
+        </Output>
+        <Node score="Iris-setosa" recordCount="118.0">
+            <True/>
+            <ScoreDistribution value="Iris-setosa" recordCount="41.0"/>
+            <ScoreDistribution value="Iris-virginica" recordCount="40.0"/>
+            <ScoreDistribution value="Iris-versicolor" recordCount="37.0"/>
+            <Node score="Iris-setosa" recordCount="41.0">
+                <SimplePredicate field="x3" operator="lessOrEqual" value="1.7"/>
+                <ScoreDistribution value="Iris-setosa" recordCount="41.0"/>
+            </Node>
+            <Node score="Iris-virginica" recordCount="77.0">
+                <SimplePredicate field="x3" operator="greaterThan" value="1.7"/>
+                <ScoreDistribution value="Iris-virginica" recordCount="40.0"/>
+                <ScoreDistribution value="Iris-versicolor" recordCount="37.0"/>
+                <Node score="Iris-versicolor" recordCount="40.0">
+                    <SimplePredicate field="x3" operator="lessOrEqual" value="4.9"/>
+                    <ScoreDistribution value="Iris-virginica" recordCount="4.0"/>
+                    <ScoreDistribution value="Iris-versicolor" recordCount="36.0"/>
+                    <Node score="Iris-versicolor" recordCount="35.0">
+                        <SimplePredicate field="x4" operator="lessOrEqual" value="1.6"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="35.0"/>
+                    </Node>
+                    <Node score="Iris-virginica" recordCount="5.0">
+                        <SimplePredicate field="x4" operator="greaterThan" value="1.6"/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="4.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+                        <Node score="Iris-virginica" recordCount="4.0">
+                            <SimplePredicate field="x2" operator="lessOrEqual" value="2.8"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="4.0"/>
+                        </Node>
+                        <Node score="Iris-versicolor" recordCount="1.0">
+                            <SimplePredicate field="x2" operator="greaterThan" value="2.8"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+                        </Node>
+                    </Node>
+                </Node>
+                <Node score="Iris-virginica" recordCount="37.0">
+                    <SimplePredicate field="x3" operator="greaterThan" value="4.9"/>
+                    <ScoreDistribution value="Iris-virginica" recordCount="36.0"/>
+                    <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+                    <Node score="Iris-virginica" recordCount="4.0">
+                        <SimplePredicate field="x3" operator="lessOrEqual" value="5"/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="3.0"/>
+                        <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+                        <Node score="Iris-virginica" recordCount="3.0">
+                            <SimplePredicate field="x1" operator="lessOrEqual" value="6.3"/>
+                            <ScoreDistribution value="Iris-virginica" recordCount="3.0"/>
+                        </Node>
+                        <Node score="Iris-versicolor" recordCount="1.0">
+                            <SimplePredicate field="x1" operator="greaterThan" value="6.3"/>
+                            <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+                        </Node>
+                    </Node>
+                    <Node score="Iris-virginica" recordCount="33.0">
+                        <SimplePredicate field="x3" operator="greaterThan" value="5"/>
+                        <ScoreDistribution value="Iris-virginica" recordCount="33.0"/>
+                    </Node>
+                </Node>
+            </Node>
+        </Node>
+    </TreeModel>
+</PMML>

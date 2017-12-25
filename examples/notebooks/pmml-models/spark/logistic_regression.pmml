@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_3" version="4.3">
+    <Header>
+        <Application/>
+        <Timestamp>2017-12-17T13:11:50Z</Timestamp>
+    </Header>
+    <DataDictionary>
+        <DataField name="y" optype="categorical" dataType="string">
+            <Value value="Iris-setosa"/>
+            <Value value="Iris-versicolor"/>
+            <Value value="Iris-virginica"/>
+        </DataField>
+        <DataField name="x1" optype="continuous" dataType="double"/>
+        <DataField name="x2" optype="continuous" dataType="double"/>
+        <DataField name="x3" optype="continuous" dataType="double"/>
+        <DataField name="x4" optype="continuous" dataType="double"/>
+    </DataDictionary>
+    <RegressionModel functionName="classification" normalizationMethod="softmax">
+        <MiningSchema>
+            <MiningField name="y" usageType="target"/>
+            <MiningField name="x1"/>
+            <MiningField name="x2"/>
+            <MiningField name="x3"/>
+            <MiningField name="x4"/>
+        </MiningSchema>
+        <Output>
+            <OutputField name="pmml(prediction)" optype="categorical" dataType="string" feature="predictedValue"/>
+            <OutputField name="prediction" optype="categorical" dataType="double" feature="transformedValue">
+                <MapValues outputColumn="output">
+                    <FieldColumnPair field="pmml(prediction)" column="input"/>
+                    <InlineTable>
+                        <row>
+                            <input xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">Iris-setosa</input>
+                            <output xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">0</output>
+                        </row>
+                        <row>
+                            <input xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">Iris-versicolor</input>
+                            <output xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">1</output>
+                        </row>
+                        <row>
+                            <input xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">Iris-virginica</input>
+                            <output xmlns:ns2="http://www.dmg.org/PMML-4_3" xmlns="">2</output>
+                        </row>
+                    </InlineTable>
+                </MapValues>
+            </OutputField>
+            <OutputField name="probability(Iris-setosa)" optype="continuous" dataType="double" feature="probability" value="Iris-setosa"/>
+            <OutputField name="probability(Iris-versicolor)" optype="continuous" dataType="double" feature="probability" value="Iris-versicolor"/>
+            <OutputField name="probability(Iris-virginica)" optype="continuous" dataType="double" feature="probability" value="Iris-virginica"/>
+        </Output>
+        <RegressionTable intercept="2.399646872946065" targetCategory="Iris-setosa">
+            <NumericPredictor name="x1" coefficient="-13.97013542859505"/>
+            <NumericPredictor name="x2" coefficient="54.651606879252846"/>
+            <NumericPredictor name="x3" coefficient="-15.944479293291936"/>
+            <NumericPredictor name="x4" coefficient="-36.01498422030875"/>
+        </RegressionTable>
+        <RegressionTable intercept="19.742810574803094" targetCategory="Iris-versicolor">
+            <NumericPredictor name="x1" coefficient="8.222279565225273"/>
+            <NumericPredictor name="x2" coefficient="-24.028098954433514"/>
+            <NumericPredictor name="x3" coefficient="3.3021710268994267"/>
+            <NumericPredictor name="x4" coefficient="9.014553315980292"/>
+        </RegressionTable>
+        <RegressionTable intercept="-22.142457447749155" targetCategory="Iris-virginica">
+            <NumericPredictor name="x1" coefficient="5.747855863369778"/>
+            <NumericPredictor name="x2" coefficient="-30.623507924819332"/>
+            <NumericPredictor name="x3" coefficient="12.64230826639251"/>
+            <NumericPredictor name="x4" coefficient="27.000430904328454"/>
+        </RegressionTable>
+    </RegressionModel>
+</PMML>
