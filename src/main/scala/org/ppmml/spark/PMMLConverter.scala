@@ -13,6 +13,8 @@
  */
 package org.ppmml.spark
 
+import com.google.common.io.Files
+import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 
 /**
@@ -21,11 +23,20 @@ import org.apache.spark.sql.SparkSession
   * To fix the exception, this wrapper creates a SparkSession with master local
   */
 object PMMLConverter {
+  val warehouseDir = Files.createTempDir()
+  val sparkConf = new SparkConf()
+    .setAppName("PMMLConverter")
+    .setMaster("local[*]")
+    .set("spark.sql.warehouse.dir", warehouseDir.getCanonicalPath)
   val spark = SparkSession.builder()
     .appName("PMMLConverter")
-    .config("spark.ui.port", "0")
-    .master("local[*]").getOrCreate()
+    .config(sparkConf)
+    .getOrCreate()
   def main(args: Array[String]): Unit = {
-    org.jpmml.sparkml.Main.main(args: _*)
+    try {
+      org.jpmml.sparkml.Main.main(args: _*)
+    } finally {
+      warehouseDir.delete()
+    }
   }
 }
