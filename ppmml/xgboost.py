@@ -32,10 +32,15 @@ OUTPUT_OPTION = "--pmml-output"
 SCHEMA_OPTION = "--fmap-input"
 CLASSPATH_EXCLUDES = ["spark", "hadoop", "tensorflow", "parquet", "protobuf"]
 ADVANCED_OPTION_KEYS = {
+    # Transform XGBoost-style trees to PMML-style trees, default false
     'compact': '--compact',
+    # String representation of feature value(s) that should be regarded as missing
     'missing-value': '--missing-value',
+    # Limit the number of trees. Defaults to all trees
     'ntree-limit': '--ntree-limit',
+    # Target name. Defaults to "_target"
     'target-name': '--target-name',
+    # Target categories. Defaults to 0-based index [0, 1, .., num_class - 1]
     'target-categories': '--target-categories'
 }
 

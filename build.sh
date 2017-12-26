@@ -42,7 +42,9 @@ function clean() {
     echo "Clean ppmml resources"
     if [[ -d "$PYTHON_RESOURCES" ]];then
         set +e
+        pushd $PYTHON_RESOURCES
         rm *.jar
+        popd
         set -e
     fi
 }
@@ -51,6 +53,7 @@ function build_jar_deps() {
     echo "Build ppmml java dependencies"
     pushd $DEPS_BASE
         mvn clean package -DskipTests
+        echo "Copying jars under ${LIB_MANAGED}/*.jar to $PYTHON_RESOURCES"
         cp $LIB_MANAGED/*.jar $PYTHON_RESOURCES
     popd
 }
@@ -72,7 +75,7 @@ function package() {
     echo "do_package ${do_package}"
     if [[ "${do_package}" = "True" ]];then
         build_jar_deps
-        build_python_deps
+        # build_python_deps
         echo "Successfully generate ppmml egg package under ${PROJECT_DIR}/dist"
     else
         echo "package option is disabled"
