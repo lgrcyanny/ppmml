@@ -448,7 +448,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
                 <configuration>
-                    <outputDirectory>${project.basedir}/python/ppmml/resources</outputDirectory>
+                    <outputDirectory>${project.basedir.parent}/ppmml/resources</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -464,7 +464,7 @@
                         </goals>
                         <configuration>
                             <includeScope>compile</includeScope>
-                            <outputDirectory>${project.basedir}/python/ppmml/resources</outputDirectory>
+                            <outputDirectory>${project.basedir.parent}/ppmml/resources</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

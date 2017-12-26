@@ -5,11 +5,12 @@
 target/
 build
 dist
-python/ppmml/resources/*.jar
+ppmml/resources/*.jar
 test.*
+test_*
 *.pyc
 *.crc
-python/ppmml.egg-info/*
+ppmml.egg-info/*
 spark-warehouse
 src/main/scala/org/ppmml/spark/examples/*
 .ipynb_checkpoints

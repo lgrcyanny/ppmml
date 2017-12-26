@@ -21,9 +21,10 @@ set -o pipefail
 set -u
 
 PROJECT_DIR=$(cd `dirname $0`;pwd)
-PYTHON_BASE=$PROJECT_DIR/python
+PYTHON_BASE=$PROJECT_DIR
 PYTHON_RESOURCES=$PYTHON_BASE/ppmml/resources
-LIB_MANAGED=$PROJECT_DIR/src/main/lib_managed
+DEPS_BASE=$PROJECT_DIR/deps
+LIB_MANAGED=$DEPS_BASE/src/main/lib_managed
 do_clean="False"
 do_package="False"
 
@@ -48,7 +49,7 @@ function clean() {
 
 function build_jar_deps() {
     echo "Build ppmml java dependencies"
-    pushd $PROJECT_DIR
+    pushd $DEPS_BASE
         mvn clean package -DskipTests
         cp $LIB_MANAGED/*.jar $PYTHON_RESOURCES
     popd
@@ -71,9 +72,7 @@ function package() {
     echo "do_package ${do_package}"
     if [[ "${do_package}" = "True" ]];then
         build_jar_deps
-        # build_python_deps
-        # [[ -d $PROJECT_DIR/dist ]] && rm -r $PROJECT_DIR/dist
-        # mv $PYTHON_BASE/dist $PROJECT_DIR
+        build_python_deps
         echo "Successfully generate ppmml egg package under ${PROJECT_DIR}/dist"
     else
         echo "package option is disabled"
