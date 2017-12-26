@@ -33,8 +33,8 @@ setup(
     description = "Python library for converting machine learning models to pmml file",
     author ='Cyanny Liang',
     author_email='lgrcyanny@gmail.com',
-    url = "https://github.com/ppmml/ppmml",
-    download_url = "https://github.com/ppmml/ppmml/archive/" + __version__ + ".tar.gz",
+    url = "https://github.com/lgrcyanny/ppmml",
+    download_url = "https://github.com/lgrcyanny/ppmml/archive/" + __version__ + ".tar.gz",
     license = "GNU Affero General Public License (AGPL) version 3.0",
     classifiers = [
         "Development Status :: 5 - Production/Stable",
