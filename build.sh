@@ -27,6 +27,7 @@ DEPS_BASE=$PROJECT_DIR/deps
 LIB_MANAGED=$DEPS_BASE/src/main/lib_managed
 do_clean="False"
 do_package="False"
+do_install="False"
 
 function print_usage() {
     echo "Usage:"
@@ -43,7 +44,7 @@ function clean() {
     if [[ -d "$PYTHON_RESOURCES" ]];then
         set +e
         pushd $PYTHON_RESOURCES
-        rm *.jar
+            rm *.jar
         popd
         set -e
     fi
@@ -61,7 +62,12 @@ function build_jar_deps() {
 function build_python_deps() {
     echo "Build ppmml python dependencies"
     pushd $PYTHON_BASE
-        python setup.py bdist_egg
+        if [[ "${do_install}" = "True" ]];then
+            python setup.py install
+        else
+            python setup.py bdist_egg
+            echo "Successfully generate ppmml egg package under ${PROJECT_DIR}/dist"
+        fi
     popd
 }
 
@@ -75,8 +81,7 @@ function package() {
     echo "do_package ${do_package}"
     if [[ "${do_package}" = "True" ]];then
         build_jar_deps
-        # build_python_deps
-        echo "Successfully generate ppmml egg package under ${PROJECT_DIR}/dist"
+        build_python_deps
     else
         echo "package option is disabled"
     fi
@@ -95,6 +100,9 @@ function main() {
                 ;;
             package)
                 do_package="True"
+                ;;
+            install)
+                do_install="True"
                 ;;
             *)
                 echo "unsupported options"

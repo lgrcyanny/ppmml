@@ -33,7 +33,7 @@ OUTPUT_OPTION = "--pmml-output"
 CLASSPATH_EXCLUDES = ["spark", "hadoop"]
 
 class TensorflowConverter(BaseConverter):
-    """ convert sklearn model file to pmml file
+    """ convert tensorflow model file to pmml file
     """
 
     def __init__(self):

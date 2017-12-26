@@ -19,7 +19,7 @@ import javax.xml.transform.stream.StreamResult
 import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
 import org.apache.spark.ml.{Pipeline, PipelineModel}
 import org.apache.spark.ml.feature.{StringIndexer, VectorAssembler}
-import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
+import org.apache.spark.sql.{DataFrame, Dataset, SaveMode, SparkSession}
 import org.apache.spark.sql.types.StructType
 import org.jpmml.model.JAXBUtil
 import org.jpmml.sparkml.ConverterUtil
@@ -94,5 +94,37 @@ trait TrainingUtils {
       .setLabelCol("label")
     println("AUC = " + evaluator.evaluate(predictions))
     println(s"Model params: ${model.explainParams()}")
+  }
+}
+
+/**
+  * dump resources/iris.csv to output
+  */
+object GenerateTestData {
+  def process(outputPath: String) = {
+    val dataStream = DecisionTree.getClass.getResourceAsStream("/iris.csv")
+    val data = Source.fromInputStream(dataStream).getLines().toList
+    val out = new PrintWriter(new File(outputPath))
+    try {
+      out.println("x1,x2,x3,x4,y")
+      for (i <- 0 until data.length) {
+        if (i == data.length - 1) {
+          out.print(data(i)) // avoid the last empty line
+        } else {
+          out.println(data(i))
+        }
+      }
+    } finally {
+      out.close()
+    }
+  }
+
+  def main(args: Array[String]): Unit = {
+    val outputPath = if (args.length >= 1) {
+      args(0)
+    } else {
+      "./spark-models/test.csv"
+    }
+    process(outputPath)
   }
 }

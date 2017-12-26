@@ -30,7 +30,8 @@ MAIN_CLASS = "org.jpmml.xgboost.Main"
 INPUT_OPTION = "--model-input"
 OUTPUT_OPTION = "--pmml-output"
 SCHEMA_OPTION = "--fmap-input"
-CLASSPATH_EXCLUDES = ["spark", "hadoop", "tensorflow", "parquet", "protobuf"]
+CLASSPATH_EXCLUDES = ["spark", "hadoop", "tensorflow",
+    "parquet", "protobuf", "jpmml-converter-1.2.5"]
 ADVANCED_OPTION_KEYS = {
     # Transform XGBoost-style trees to PMML-style trees, default false
     'compact': '--compact',
@@ -46,7 +47,7 @@ ADVANCED_OPTION_KEYS = {
 
 
 class XGBoostConverter(BaseConverter):
-    """ convert sklearn model file to pmml file
+    """ convert xgboost model file to pmml file
     """
 
     def __init__(self):

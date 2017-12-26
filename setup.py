@@ -45,12 +45,14 @@ setup(
         "Topic :: Software Development",
         "Topic :: Scientific/Engineering"
     ],
-    packages = ["ppmml", "ppmml.resources"],
+    packages = ["ppmml", "ppmml.resources", "ppmml.tests"],
     package_data = {
         "ppmml.resources": ["*.jar"]
     },
     install_requires = [
         "scikit-learn>=0.18.0",
         "sklearn-pandas>=0.0.10",
+        "xgboost>=0.6a2",
+        "lightgbm>=2.0.11"
     ]
 )

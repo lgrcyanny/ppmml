@@ -26,7 +26,6 @@ from __future__ import print_function
 import logging
 from ppmml import utils
 
-
 utils._init_log()
 MAIN_CLASS = "org.jpmml.evaluator.EvaluationExample"
 PMML_INPUT_OPTION = "--model"
@@ -68,7 +67,10 @@ def predict(pmml_input, data_input, data_output, options=None):
     if (options is not None) and (len(options) > 0):
         for opt, value in options.items():
             if opt in ADVANCED_OPTIONS.keys():
-                run_args.extend([ADVANCED_OPTIONS[opt], str(value)])
+                if (isinstance(value, bool) and value) or (value == 'True'):
+                    run_args.extend([ADVANCED_OPTIONS[opt]])
+                else:
+                    run_args.extend([ADVANCED_OPTIONS[opt], str(value)])
             else:
                 raise ValueError("Unsupported option {}, "
                     "supported options are: {}".format(opt,
@@ -76,5 +78,4 @@ def predict(pmml_input, data_input, data_output, options=None):
     classpath = utils._get_classpath(excludes=CLASSPATH_EXCLUDES)
     utils._exec_java(classpath, MAIN_CLASS, args=run_args)
     logging.info("Successfully generate predictions to path: {}".format(csv_output_path))
-
 

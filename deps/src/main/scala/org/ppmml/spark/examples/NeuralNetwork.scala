@@ -21,7 +21,7 @@ import org.apache.spark.sql.SparkSession
 object NeuralNetwork extends TrainingUtils {
   override val spark = SparkSession.builder().master("local[*]").appName(this.getClass.getCanonicalName).getOrCreate()
 
-  def train() = {
+  def train(outputBase: String) = {
     val data = loadIris()
     val Array(trainData, testData) = data.randomSplit(Array(0.8, 0.2))
     val layers = Array(4, 20, 20, 3)
@@ -40,8 +40,9 @@ object NeuralNetwork extends TrainingUtils {
     val model: PipelineModel = pipeline.fit(trainData)
 
     // output spark model
-    model.write.overwrite().save("./spark-models/neural_network_model")
-    saveSchema(trainData.schema, "./spark-models/neural_network.json")
+    println(s"saving model to ${outputBase}")
+    model.write.overwrite().save(s"${outputBase}/neural_network_model")
+    saveSchema(trainData.schema, s"${outputBase}/neural_network.json")
 
     // evaluate
     val predictions = model.transform(testData)
@@ -50,6 +51,11 @@ object NeuralNetwork extends TrainingUtils {
   }
 
   def main(args: Array[String]): Unit = {
-    train()
+    val outputBasePath = if (args.length >= 1) {
+      args(0)
+    } else {
+      "./spark-models"
+    }
+    train(outputBasePath)
   }
 }
