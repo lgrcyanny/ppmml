@@ -32,9 +32,13 @@ INPUT_OPTION = "--lgbm-input"
 OUTPUT_OPTION = "--pmml-output"
 CLASSPATH_EXCLUDES = ["spark", "hadoop", "tensorflow", "parquet", "protobuf"]
 ADVANCED_OPTION_KEYS = {
+    # Transform LightGBM-style trees to PMML-style trees, default false
     'compact': '--compact',
+    # Limit the number of trees. Defaults to all trees
     'num-iteration': '--num-iteration',
+    # Target categories. Defaults to 0-based index [0, 1, .., num_class - 1]
     'target-categories': '--target-categories',
+    # Target name. Defaults to "_target"
     'target-name': '--target-name'
 }
 

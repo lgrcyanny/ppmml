@@ -22,5 +22,6 @@
 
 from ppmml import utils
 from ppmml.converter import to_pmml
+from ppmml.evaluator import predict
 
-__all__ = ["to_pmml"]
+__all__ = ["to_pmml", "predict"]

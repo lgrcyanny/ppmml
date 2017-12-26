@@ -59,16 +59,18 @@ class BaseConverter(object):
         """ generate advanced args base on user options
         """
         args = []
-        if options is None:
+        if options is None or self.advanced_option_keys is None:
             return args
-        for opt, value in options:
+        for opt, value in options.items():
             if opt in self.advanced_option_keys.keys():
-                args.extend([self.advanced_option_keys[opt], value])
+                if isinstance(value, bool):
+                    args.extend([self.advanced_option_keys[opt]])
+                else:
+                    args.extend([self.advanced_option_keys[opt], str(value)])
             else:
-                advanced_option_keys_str = ','.join(self.advanced_option_keys.keys())
-                raise ValueError("Unsupported option, "
-                    "supported options: [{}], your option is: {}".format(
-                        self.advanced_option_keys_str, opt))
+                raise ValueError("Unsupported option: {}, "
+                    "supported options: {}".format(opt,
+                        self.advanced_option_keys.keys()))
         return args
 
     def _prepare_schema_args(self, schema_input):
