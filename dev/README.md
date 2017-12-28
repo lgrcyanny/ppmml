@@ -3,7 +3,7 @@
 ## Requirement:
 + python packages
 ```
-pip install xgboost,lightgbm,tensorflow,sklearn
+pip install xgboost lightgbm tensorflow scikit-learn
 ```
 
 + sun-java8

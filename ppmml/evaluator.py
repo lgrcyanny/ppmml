@@ -36,7 +36,7 @@ ADVANCED_OPTIONS = {
     'sparse': '--sparse', # Permit missing input field columns, default false
     'copy-columns': '--copy-columns' # copy all columns from input CSV file to output CSV file
 }
-CLASSPATH_EXCLUDES = ["spark", "hadoop", "tensorflow", "parquet", "protobuf"]
+CLASSPATH_INCLUDES = ["jpmml-evaluator-example"]
 
 def predict(pmml_input, data_input, data_output, options=None):
     """ Make predictions with pmml file
@@ -75,7 +75,7 @@ def predict(pmml_input, data_input, data_output, options=None):
                 raise ValueError("Unsupported option {}, "
                     "supported options are: {}".format(opt,
                         ADVANCED_OPTIONS.keys()))
-    classpath = utils._get_classpath(excludes=CLASSPATH_EXCLUDES)
+    classpath = utils._get_classpath(includes=CLASSPATH_INCLUDES)
     utils._exec_java(classpath, MAIN_CLASS, args=run_args)
     logging.info("Successfully generate predictions to path: {}".format(csv_output_path))
 
