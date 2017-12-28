@@ -1,7 +1,7 @@
 # PPMML Examples
 Please run these examples with jupyter notebook
 ```
-    jupyter notebook
+jupyter notebook
 ```
 
 ## For jupyter + spark

@@ -25,7 +25,14 @@ import os
 from setuptools import setup
 from setuptools import find_packages
 
-__version__ = "0.0.1"
+
+def parse_version():
+    """ parse package version from VERSION file
+    """
+    with open("VERSION", "r") as f:
+        __version__ = f.readlines()[0]
+        print("packaging ppmml {}".format(__version__))
+parse_version()
 
 setup(
     name = "ppmml",
@@ -49,10 +56,11 @@ setup(
     package_data = {
         "ppmml.resources": ["*.jar"]
     },
+    keywords=['machine learning', 'data science', 'jpmml', 'pmml',
+    'sklearn', 'scikit-learn', 'tensorflow', 'xgboost', 'spark', 'sparkml', 'R', 'lightgbm'],
     install_requires = [
-        "scikit-learn>=0.18.0",
-        "sklearn-pandas>=0.0.10",
-        "xgboost>=0.6a2",
-        "lightgbm>=2.0.11"
+        # when do to_pmml, we call java subprocess, so there is no need to install
+        # tensorflow, xgboost, lightgbm. If you run unit test, please install them
+        "scikit-learn>=0.18.0"
     ]
 )
