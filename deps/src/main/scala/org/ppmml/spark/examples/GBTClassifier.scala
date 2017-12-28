@@ -28,12 +28,11 @@ object GBTClassifier extends TrainingUtils {
   override val spark = SparkSession.builder()
     .master("local[*]").appName(this.getClass.getCanonicalName).getOrCreate()
 
-  def train() = {
+  def train(outputBase: String) = {
     val data = loadIris()
     val transformedData = data.withColumn("label", (col("y") === "Iris-setosa").cast(IntegerType))
     val Array(trainData, testData) = transformedData.randomSplit(Array(0.8, 0.2))
     // preprocessing
-//    val indexer = new StringIndexer().setInputCol("isSetosa").setOutputCol("label")
     val vectorAssembler = new VectorAssembler()
       .setInputCols(Array("x1", "x2", "x3", "x4")).setOutputCol("features")
     val classifier = new GBTClassifier()
@@ -45,12 +44,18 @@ object GBTClassifier extends TrainingUtils {
     val pipeline = new Pipeline().setStages(Array(vectorAssembler, classifier))
     val model = pipeline.fit(trainData)
     // Save model and schema
-    model.write.overwrite().save("./spark-models/gbt_classifier_model")
-    saveSchema(trainData.schema, "./spark-models/gbt_classifier.json")
+    println(s"saving model to ${outputBase}")
+    model.write.overwrite().save(s"${outputBase}/gbt_classifier_model")
+    saveSchema(trainData.schema, s"${outputBase}/gbt_classifier.json")
   }
 
   def main(args: Array[String]): Unit = {
-    train()
+    val outputBasePath = if (args.length >= 1) {
+      args(0)
+    } else {
+      "./spark-models"
+    }
+    train(outputBasePath)
   }
 
 }

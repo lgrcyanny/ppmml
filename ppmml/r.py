@@ -37,7 +37,7 @@ ADVANCED_OPTION_KEYS = {
 }
 
 class RConverter(BaseConverter):
-    """ convert sklearn model file to pmml file
+    """ convert r model file to pmml file
     """
 
     def __init__(self):

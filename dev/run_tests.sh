@@ -1,5 +1,4 @@
-#!/usr/bin/evn python
-# -*- coding: utf-8 -*-
+#!/usr/bin/evn bash
 ################################################################################
 #
 # Copyright (c) 2017 the ppmml authors. All Rights Reserved
@@ -17,15 +16,23 @@
 # along with ppmml.  If not, see <http://www.gnu.org/licenses/>.
 #
 ################################################################################
-"""This module provide ppmml setup configuration.
-"""
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+set -e
+set -o pipefail
+set -u
 
-import ppmml
-from ppmml import utils
-from ppmml.converter import to_pmml
-from ppmml.evaluator import predict
+WORK_DIR=$(cd `dirname $0`;pwd)
+PROJECT_DIR=$(cd $WORK_DIR/..;pwd)
+PYTHON_BASE=$PROJECT_DIR/ppmml
+PYTHON_RUN_TESTS=$WORK_DIR/run_tests.py
 
-__all__ = ["to_pmml", "predict"]
+function run_tests() {
+    cd $PROJECT_DIR
+        python $PYTHON_RUN_TESTS "$@"
+    cd -
+}
+
+function main() {
+    run_tests "$@"
+}
+
+main "$@"

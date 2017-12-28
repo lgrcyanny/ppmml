@@ -36,7 +36,7 @@ SCHEMA_OPTION = "--schema-input"
 CLASSPATH_EXCLUDES = ["tensorflow", "slf4j-jdk14", "jpmml-converter-1.2.6"]
 
 class SparkConverter(BaseConverter):
-    """ convert sklearn model file to pmml file
+    """ convert spark model file to pmml file
     """
 
     def __init__(self):

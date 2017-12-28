@@ -63,10 +63,10 @@ class BaseConverter(object):
             return args
         for opt, value in options.items():
             if opt in self.advanced_option_keys.keys():
-                if isinstance(value, bool):
+                if (isinstance(value, bool) and value) or (value == 'True'):
                     args.extend([self.advanced_option_keys[opt]])
                 else:
-                    args.extend([self.advanced_option_keys[opt], str(value)])
+                    args.extend([self.advanced_option_keys[opt], str("'{}'".format(value))])
             else:
                 raise ValueError("Unsupported option: {}, "
                     "supported options: {}".format(opt,
@@ -85,8 +85,7 @@ class BaseConverter(object):
     def to_pmml(self, model_input, pmml_output, schema_input=None, options=None):
         """ to_pmml file
         """
-        logging.info("Startint to convert model file {} to pmml file {} "
-            "with schema {} and options: {}"
+        logging.info("Starting to convert model file {} to pmml file"
             .format(model_input, pmml_output, schema_input, str(options)))
         run_args = self._prepare_base_args(model_input, pmml_output)
         advanced_args = self._prepare_advanced_args(options)

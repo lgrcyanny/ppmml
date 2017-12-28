@@ -25,7 +25,7 @@ object LDA extends TrainingUtils {
   val spark = SparkSession.builder()
     .master("local[*]").appName(this.getClass.getName).getOrCreate()
 
-  def train() = {
+  def train(outputBase: String) = {
     val data: DataFrame = loadIris()
     val Array(trainData, testData) = data.randomSplit(Array(0.8, 0.2))
 
@@ -36,11 +36,17 @@ object LDA extends TrainingUtils {
     // pipeline data
     val pipeline = new Pipeline().setStages(Array(vectorAssembler, cluster))
     val model: PipelineModel = pipeline.fit(trainData)
-    model.write.overwrite().save("./spark-models/lda_model")
-    saveSchema(trainData.schema, "./spark-models/lda.json")
+    println(s"saving model to ${outputBase}")
+    model.write.overwrite().save(s"${outputBase}/lda_model")
+    saveSchema(trainData.schema, s"${outputBase}/lda.json")
   }
 
   def main(args: Array[String]): Unit = {
-    train()
+    val outputBasePath = if (args.length >= 1) {
+      args(0)
+    } else {
+      "./spark-models"
+    }
+    train(outputBasePath)
   }
 }

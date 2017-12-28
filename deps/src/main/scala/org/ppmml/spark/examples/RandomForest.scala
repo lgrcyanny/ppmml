@@ -21,7 +21,7 @@ import org.apache.spark.sql.SparkSession
 object RandomForest extends TrainingUtils {
   override val spark = SparkSession.builder().master("local[*]").appName(this.getClass.getCanonicalName).getOrCreate()
 
-  def train() = {
+  def train(outputBase: String) = {
     val data = loadIris()
     val Array(trainData, testData) = data.randomSplit(Array(0.8, 0.2))
     // preprocessing
@@ -39,13 +39,19 @@ object RandomForest extends TrainingUtils {
     val pipeline = new Pipeline().setStages(Array(indexer, vectorAssembler, classifier))
     val model: PipelineModel = pipeline.fit(trainData)
 
-    model.write.overwrite().save("./spark-models/random_forest_model")
-    saveSchema(trainData.schema, "./spark-models/random_forest.json")
+    println(s"saving model to ${outputBase}")
+    model.write.overwrite().save(s"${outputBase}/random_forest_model")
+    saveSchema(trainData.schema, s"${outputBase}/random_forest.json")
     // validate
     doEvaluate(model, testData)
   }
 
   def main(args: Array[String]): Unit = {
-    train()
+    val outputBasePath = if (args.length >= 1) {
+      args(0)
+    } else {
+      "./spark-models"
+    }
+    train(outputBasePath)
   }
 }

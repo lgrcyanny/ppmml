@@ -42,7 +42,6 @@ _CONVERTER_MAPS = {
     'r': RConverter()
 }
 
-
 def to_pmml(model_input,
             pmml_output,
             model_type='sklearn',

@@ -44,7 +44,7 @@ ADVANCED_OPTION_KEYS = {
 
 
 class LightGBMConverter(BaseConverter):
-    """ convert sklearn model file to pmml file
+    """ convert lightgbm model file to pmml file
     """
 
     def __init__(self):
