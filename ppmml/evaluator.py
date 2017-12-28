@@ -32,9 +32,12 @@ PMML_INPUT_OPTION = "--model"
 DATA_INPUT_OPTION = "--input"
 DATA_OUTPUT_OPTION = "--output"
 ADVANCED_OPTIONS = {
-    'separator': '--separator', # CSV cell separator character
-    'sparse': '--sparse', # Permit missing input field columns, default false
-    'copy-columns': '--copy-columns' # copy all columns from input CSV file to output CSV file
+    # CSV cell separator character
+    'separator': '--separator',
+    # Permit missing input field columns, default false
+    'sparse': '--sparse',
+    # copy all columns from input CSV file to output CSV file, defaut true
+    'copy-columns': '--copy-columns'
 }
 CLASSPATH_INCLUDES = ["jpmml-evaluator-example"]
 
@@ -59,7 +62,8 @@ def predict(pmml_input, data_input, data_output, options=None):
     utils._ensure_path(csv_output_path)
     logging.info("Starting to make predictions of "
         "pmml file: {}, "
-        "data_input: {}, data_output: {}".format(pmml_file_path, csv_input_path, csv_output_path))
+        "data_input: {}, data_output: {}"
+        .format(pmml_file_path, csv_input_path, csv_output_path))
     run_args.extend([PMML_INPUT_OPTION, pmml_file_path])
     run_args.extend([DATA_INPUT_OPTION, csv_input_path])
     run_args.extend([DATA_OUTPUT_OPTION, csv_output_path])
