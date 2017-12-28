@@ -30,9 +30,11 @@ def parse_version():
     """ parse package version from VERSION file
     """
     with open("VERSION", "r") as f:
-        __version__ = f.readlines()[0]
-        print("packaging ppmml {}".format(__version__))
-parse_version()
+        version= f.readlines()[0]
+        print("packaging ppmml {}".format(version))
+    return version
+
+__version__ = parse_version()
 
 setup(
     name = "ppmml",
