@@ -71,17 +71,33 @@ def _is_jar_excluded(jar_name, excludes):
     return False
 
 
-def _get_classpath(excludes=None):
+def _is_jar_includes(jar_name, includes):
+    """ test if jar includes in classpath
+
+    Args:
+    jar_name: string, jar name
+    includes: set of string, jar names
+    """
+    for include_tag in includes:
+        if include_tag in jar_name:
+            logging.debug("include jar {}, {}".format(jar_name, include_tag))
+            return True
+    return False
+
+def _get_classpath(excludes=None, includes=None):
     """ get classpath by listing resources
 
-    excludes: set of string, exclusion jar names
+    Args:
+        excludes: set of string, exclusion jar names
+        includes: set of string, including jar names
     """
     jars = []
     resources = pkg_resources.resource_listdir("ppmml.resources", "")
     for resource in resources:
         if (resource.endswith(".jar") and
-            (excludes is not None and not _is_jar_excluded(resource, excludes))):
-            jars.append(pkg_resources.resource_filename("ppmml.resources", resource))
+            (includes is None or _is_jar_includes(resource, includes)) and
+            (excludes is None or not _is_jar_excluded(resource, excludes))):
+                jars.append(pkg_resources.resource_filename("ppmml.resources", resource))
     if len(jars) > 0:
         classpath = os.pathsep.join(jars)
     else:
