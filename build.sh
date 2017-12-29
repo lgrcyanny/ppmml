@@ -36,7 +36,7 @@ function print_usage() {
     echo "  -h|help         help guide"
     echo "  clean           clean ppmml python resources"
     echo "  package         package ppmml and generate egg package"
-    echo "  deploy          deploy to pypi"
+    echo "  install         install to local python site-packages"
 }
 
 function clean() {
@@ -65,7 +65,7 @@ function build_python_deps() {
         if [[ "${do_install}" = "True" ]];then
             python setup.py install
         else
-            python setup.py bdist_egg
+            python setup.py bdist_egg sdist
             echo "Successfully generate ppmml egg package under ${PROJECT_DIR}/dist"
         fi
     popd
