@@ -1,2 +1,0 @@
-include *.py *.md LICENSE.txt VERSION
-recursive-include ppmml *.py *.jar
