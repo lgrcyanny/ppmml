@@ -3,7 +3,7 @@ ppmml is a python library for converting machine learning models to pmml file. p
 
 # Installation
 ```shell
-pip install -i https://pypi.anaconda.org/lgrcyanny/simple ppmml
+pip install --default-timeout=10000 -i https://pypi.anaconda.org/lgrcyanny/simple ppmml
 ```
 [ppmml conda package](https://anaconda.org/lgrcyanny/ppmml)
 

@@ -25,11 +25,10 @@ import os
 from setuptools import setup
 from setuptools import find_packages
 
-
 def parse_version():
     """ parse package version from VERSION file
     """
-    with open("VERSION", "r") as f:
+    with open("./VERSION", "r") as f:
         version= f.readlines()[0]
         print("packaging ppmml {}".format(version))
     return version
@@ -55,6 +54,7 @@ setup(
         "Topic :: Scientific/Engineering"
     ],
     packages = ["ppmml", "ppmml.resources", "ppmml.tests"],
+    include_package_data=True,
     package_data = {
         "ppmml.resources": ["*.jar"]
     },
